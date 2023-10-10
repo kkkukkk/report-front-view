@@ -1,0 +1,45 @@
+:root {
+    --theme_1_a: #8D7B68;
+    --theme_1_b: #A4907C;
+    --theme_1_c: #C8B6A6;
+    --theme_1_d: #F1DEC9;
+    --theme_1_e: #FFF8EA;
+    --theme_1_f: #FFF4DE;
+
+    --theme_2_a: rgb(82,117,120);
+    --theme_2_b: rgb(132,151,143);
+    --theme_2_c: rgb(173,166,146);
+    --theme_2_d: rgb(179,177,178);
+    --theme_2_e: rgb(255,255,255);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard-Regular', sans-serif;
+}
+
+div {
+    box-sizing: border-box;
+    white-space: pre-line;
+}
+
+button {
+    border: none;
+    font-size: 16px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+img {
+    object-fit: cover;
+    object-position: center;
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
