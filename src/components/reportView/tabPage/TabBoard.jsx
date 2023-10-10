@@ -4,34 +4,6 @@ import {useSelector} from "react-redux";
 import axios from "axios";
 import ResolveList from "./ResolveList";
 
-const StyledTabBoard = styled.div`
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-  background: white;
-`
-const StyledTitleRow = styled.div`
-  display: flex;
-  gap: 20px;
-  margin-bottom: 5px;
-  padding: 5px 10px;
-  font-weight: bold;
-  background: #f6f6f6;
-  text-align: center;
-  
-  & > div:nth-child(1) { width: 6%; min-width: fit-content; }
-  & > div:nth-child(2) { width: 3%; min-width: fit-content; }
-  & > div:nth-child(3) { width: 4%; min-width: fit-content; }
-  & > div:nth-child(4) { width: 4%; min-width: fit-content; cursor: pointer}
-  & > div:nth-child(4):hover { text-decoration: underline }
-  & > div:nth-child(5) { width: 5%; }
-  & > div:nth-child(5) > span { cursor: pointer; }
-  & > div:nth-child(5) > span:hover { text-decoration: underline; }
-  & > div:nth-child(6) { width: 15%; }
-  & > div:nth-child(7) { width: 24%; }
-  & > div:nth-child(8) { width: 30%; }
-`;
-
 const TabBoard = ({ tab }) => {
     const [reportData, setReportData] = useState(null);
     const [keyDirection, setIKeyDirection] = useState("asc");
@@ -123,5 +95,32 @@ const TabBoard = ({ tab }) => {
         </StyledTabBoard>
     );
 };
+
+const StyledTabBoard = styled.div`
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    background: white;
+`
+const StyledTitleRow = styled.div`
+    display: flex;
+    gap: 20px;
+    padding: 5px 10px;
+    font-weight: bold;
+    background: #f6f6f6;
+    text-align: center;
+    
+    & > div:nth-child(1) { width: 6%; min-width: fit-content; }
+    & > div:nth-child(2) { width: 3%; min-width: fit-content; }
+    & > div:nth-child(3) { width: 4%; min-width: fit-content; }
+    & > div:nth-child(4) { width: 4%; min-width: fit-content; cursor: pointer}
+    & > div:nth-child(4):hover { text-decoration: underline }
+    & > div:nth-child(5) { width: 5%; }
+    & > div:nth-child(5) > span { cursor: pointer; }
+    & > div:nth-child(5) > span:hover { text-decoration: underline; }
+    & > div:nth-child(6) { width: 15%; }
+    & > div:nth-child(7) { width: 24%; }
+    & > div:nth-child(8) { width: 30%; }
+`;
 
 export default TabBoard;

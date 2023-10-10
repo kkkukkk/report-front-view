@@ -76,7 +76,7 @@ const ExcelDownloadModal = () => {
                             setReportData(result.data);
                         }
                     });
-               } else {
+                } else {
                     setCheckReport(false);
                     setReportData(null);
                 }
@@ -123,45 +123,45 @@ const ExcelDownloadModal = () => {
 };
 
 const StyledExcelDownloadModal = styled.div`
-  position: absolute;
-  top: 38px;
-  width: 280px;
-  height: 180px;
-  padding: 20px;
-  color: black;
-  border-radius: 5px;
-  box-shadow: rgba(0,0,0,.5) 1px 1px 3px;
-  background: white;
-  
-  display: grid;
-  grid-template-areas:
-  "title"
-  "checkset"
-  "downbutton";
-  grid-template-rows: 15% 50% 30%;
-  grid-row-gap: 2px;
+    position: absolute;
+    top: 38px;
+    width: 280px;
+    height: 180px;
+    padding: 20px;
+    color: black;
+    border-radius: 5px;
+    box-shadow: rgba(0,0,0,.5) 1px 1px 3px;
+    background: white;
+    
+    display: grid;
+    grid-template-areas:
+    "title"
+    "checkset"
+    "downbutton";
+    grid-template-rows: 15% 50% 30%;
+    grid-row-gap: 2px;
 `;
 
 const CheckTitle = styled.div`
-  grid-area: title;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  font-weight: bold;
+    grid-area: title;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: bold;
 `;
 const CheckSet = styled.div`
-  grid-area: checkset;
-  display: flex;
-  gap: 2px;
+    grid-area: checkset;
+    display: flex;
+    gap: 2px;
 `;
 const DownloadButton = styled.button`
-  grid-area: downbutton;
-  color: white;
-  font-weight: bold;
-  border: 2px solid forestgreen;
-  background: forestgreen;
-  &:hover {
-    background: #2f7d2f;
-  }
+    grid-area: downbutton;
+    color: white;
+    font-weight: bold;
+    border: 2px solid forestgreen;
+    background: forestgreen;
+    &:hover {
+        background: #2f7d2f;
+    }
 `;
 export default ExcelDownloadModal;

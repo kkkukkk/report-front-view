@@ -11,9 +11,9 @@ const Plan = () => {
 };
 
 const StyledPlan = styled.div`
-  width: 100%;
-  height: 100%;
-  background: white;
+    width: 100%;
+    height: 100%;
+    background: white;
 `;
 
 

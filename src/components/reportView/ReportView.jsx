@@ -28,20 +28,20 @@ const ReportView = () => {
 };
 
 const StyledReportView = styled.div`
-  display: grid;
-  grid-template-areas: 
-  "searchCondition"
-  "tabButtons"
-  "contentWrap";
-  grid-template-rows: 5% 4% auto;
-  width: 100%;
-  height: 100%;
+    display: grid;
+    grid-template-areas: 
+    "searchCondition"
+    "tabButtons"
+    "contentWrap";
+    grid-template-rows: 5% 4% auto;
+    width: 100%;
+    height: 100%;
 `;
 
 const StyledContentWrap = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  grid-area: contentWrap;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    grid-area: contentWrap;
 `;
 export default ReportView;

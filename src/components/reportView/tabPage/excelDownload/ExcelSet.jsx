@@ -16,17 +16,17 @@ const ExcelSet = () => {
 };
 
 const StyledExcelSet = styled.div`
-  position: relative;
+    position: relative;
 `;
 
 const ExcelDownloadButton = styled.button`
-  color: white;
-  font-weight: bold;
-  border: 2px solid forestgreen;
-  background: forestgreen;
-  &:hover {
-    background: #2f7d2f;
-  }
+    color: white;
+    font-weight: bold;
+    border: 2px solid forestgreen;
+    background: forestgreen;
+    &:hover {
+        background: #2f7d2f;
+    }
 `;
 
 export default ExcelSet;

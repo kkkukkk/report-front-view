@@ -87,115 +87,115 @@ const DetailList = ({ data }) => {
 };
 
 const StyledDetailList = styled.div`
-  margin-bottom: 5px;
-  padding: 10px 10px 15px 10px;
-  background: #f6f6f6;
-  border-radius: 5px;
-
-  .detail-title {
-    display: flex;
-    align-items: center;
-    padding: 5px 0 0 0;
-    font-weight: bold;
     margin-bottom: 5px;
-
-    .status {
-      padding: 2px 5px;
-      margin-right: 10px;
-      border: 1px solid rgba(0,0,0,.3);
-      border-radius: 5px;
-      background: #ffffff;
+    padding: 10px 10px 15px 10px;
+    background: #f6f6f6;
+    border-radius: 5px;
+    
+    .detail-title {
+        display: flex;
+        align-items: center;
+        padding: 5px 0 0 0;
+        font-weight: bold;
+        margin-bottom: 5px;
+        
+        .status {
+            padding: 2px 5px;
+            margin-right: 10px;
+            border: 1px solid rgba(0,0,0,.3);
+            border-radius: 5px;
+            background: #ffffff;
+        }
     }
-  }
 
-  .detail-date {
-    margin-bottom: 5px;
-  }
+    .detail-date {
+        margin-bottom: 5px;
+    }
 
-  .detail-request-reason {
-    margin-bottom: 5px;
-    word-break: keep-all;
-  }
+    .detail-request-reason {
+        margin-bottom: 5px;
+        word-break: keep-all;
+    }
 
-  .detail-result {
-    padding: 10px;
-    margin-bottom: 5px;
-    line-height: 24px;
-    word-break: keep-all;
-    background: white;
-    border: 1px solid rgba(0,0,0,.3);
-  }
+    .detail-result {
+        padding: 10px;
+        margin-bottom: 5px;
+        line-height: 24px;
+        word-break: keep-all;
+        background: white;
+        border: 1px solid rgba(0,0,0,.3);
+    }
 
-  .detail-key-number {
-    margin-bottom: 5px;
-  }
+    .detail-key-number {
+        margin-bottom: 5px;
+    }
 
-  .detail-work-list-title {
-    font-weight: bold;
-    padding: 3px 0;
-  }
+    .detail-work-list-title {
+        font-weight: bold;
+        padding: 3px 0;
+    }
 `;
 
 const StyledDetailBoard = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
 `;
 
 const StyledDetailFrac = styled.div`
 
-  padding: 5px;
-  background: white;
-  border-radius: 5px;
-  border: 1px solid rgba(0,0,0,.3);
-  
-  & > div {
-    padding: 5px 5px 0 5px;
-  }
-  
-  .info-box {
-    display: flex;
-    gap: 5px;
-  }
-  
-  .info-box > div {
-    display: flex;
-    border: 1px solid rgba(0,0,0,.3);
-  }
-  .info-box > div > div {
     padding: 5px;
-  }
-  .info-box > div > div:first-child {
-    background: #e6e6e6;
-  }
-  .info-box > div > div:last-child {
-    padding: 5px 15px;
-    background: #ffffff;
-  }
-  
-  .content-box {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-bottom: 5px;
-  }
-  .content-box > div {
-    display: flex;
+    background: white;
+    border-radius: 5px;
     border: 1px solid rgba(0,0,0,.3);
-  }
-  .content-box > div > div {
-   padding: 5px; 
-  }
-  .content-box > div > div:first-child {
-    width: 8%;
-    text-align: center;
-    background: #e6e6e6;
-  }
-  .content-box > div > div:last-child {
-    margin-left: 5px;
-    background: #ffffff;
-  }
+    
+    & > div {
+        padding: 5px 5px 0 5px;
+    }
+    
+    .info-box {
+        display: flex;
+        gap: 5px;
+    }
+    
+    .info-box > div {
+        display: flex;
+        border: 1px solid rgba(0,0,0,.3);
+    }
+    .info-box > div > div {
+        padding: 5px;
+    }
+    .info-box > div > div:first-child {
+        background: #e6e6e6;
+    }
+    .info-box > div > div:last-child {
+        padding: 5px 15px;
+        background: #ffffff;
+    }
+    
+    .content-box {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 5px;
+    }
+    .content-box > div {
+        display: flex;
+        border: 1px solid rgba(0,0,0,.3);
+    }
+    .content-box > div > div {
+        padding: 5px;
+    }
+    .content-box > div > div:first-child {
+        width: 8%;
+        text-align: center;
+        background: #e6e6e6;
+    }
+    .content-box > div > div:last-child {
+        margin-left: 5px;
+        background: #ffffff;
+    }
 `;
 
 export default DetailList;

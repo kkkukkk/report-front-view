@@ -27,7 +27,7 @@ const TabButtons = ({handlePageMove}) => {
 };
 
 const StyledTabButtons = styled.div`
-  display: flex;
-  grid-area: tabButtons;
+    display: flex;
+    grid-area: tabButtons;
 `
 export default TabButtons;

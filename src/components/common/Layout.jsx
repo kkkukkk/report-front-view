@@ -3,24 +3,6 @@ import styled from 'styled-components';
 import Header from '../include/Header';
 import "../util/commonUtil"
 
-const StyledLayout = styled.div`
-  display: grid;
-  grid-template-rows: 6% auto;
-  grid-template-areas: 
-    "header"
-    "contents";
-  width: 100vw;
-  height: 100vh;
-  background: #e1e1e1;
-  //background: #0f61b2;
-`;
-
-const StyledContents = styled.div`
-    position: relative;
-    grid-area: contents;
-    overflow: hidden;
-`;
-
 const Layout = ({ children }) => {
 
     return (
@@ -32,6 +14,24 @@ const Layout = ({ children }) => {
         </StyledLayout>
     );
 };
+
+const StyledLayout = styled.div`
+    display: grid;
+    grid-template-rows: 6% auto;
+    grid-template-areas: 
+    "header"
+    "contents";
+    width: 100vw;
+    height: 100vh;
+    background: #e1e1e1;
+    //background: #0f61b2;
+`;
+
+const StyledContents = styled.div`
+    position: relative;
+    grid-area: contents;
+    overflow: hidden;
+`;
 
 
 export default Layout;

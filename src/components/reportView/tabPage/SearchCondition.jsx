@@ -56,44 +56,44 @@ const SearchCondition = ({ ...res }) => {
 };
 
 const StyledSearchCondition = styled.div`
-  position: relative;
-  display: flex;
-  grid-area: searchCondition;
-  align-items: center;
-  padding: 0 10px;
-  //color: white;
-  gap: 10px;
+    position: relative;
+    display: flex;
+    grid-area: searchCondition;
+    align-items: center;
+    padding: 0 10px;
+    //color: white;
+    gap: 10px;
 `;
 const ChangeSearchCondition = styled.button`
-  width: 10%;
-  height: 30px;
-  color: white;
-  font-weight: bold;
-  background: #ff4c4c;
+    width: 10%;
+    height: 30px;
+    color: white;
+    font-weight: bold;
+    background: #ff4c4c;
 `;
 
 const SearchBox = styled.div`
-  position: absolute;
-  top: 38px;
-  left: 10px;
-  display: flex;
-  flex-direction: column;
-  margin-top: 5px;
-  padding: 0 10px 10px;
-  color: white;
-  border-radius: 5px;
-  background: #9c9c9c;
-  box-shadow: rgba(0,0,0,.5) 1px 1px 3px;
-  z-index: 1;
+    position: absolute;
+    top: 38px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    padding: 0 10px 10px;
+    color: white;
+    border-radius: 5px;
+    background: #9c9c9c;
+    box-shadow: rgba(0,0,0,.5) 1px 1px 3px;
+    z-index: 1;
 `;
 
 const DateBox = styled.div`
-  padding: 10px 0;
+    padding: 10px 0;
 `;
 
 const PresentSearchCondition = styled.div`
-  font-weight: bold;
-  font-size: 16px;
+    font-weight: bold;
+    font-size: 16px;
 `;
 
 export default SearchCondition;

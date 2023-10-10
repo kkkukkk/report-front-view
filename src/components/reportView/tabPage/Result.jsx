@@ -5,15 +5,15 @@ import TabBoard from "./TabBoard";
 const Result = () => {
     return (
         <StyledResult>
-           <TabBoard tab={"result"}/>
+            <TabBoard tab={"result"}/>
         </StyledResult>
     );
 };
 
 const StyledResult = styled.div`
-  width: 100%;
-  height: 100%;
-  background: white;
+    width: 100%;
+    height: 100%;
+    background: white;
 `;
 
 export default Result;
