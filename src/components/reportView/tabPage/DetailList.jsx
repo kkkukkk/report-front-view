@@ -89,7 +89,7 @@ const DetailList = ({ data }) => {
 const StyledDetailList = styled.div`
     margin-bottom: 5px;
     padding: 10px 10px 15px 10px;
-    background: #f6f6f6;
+    background: #ececec;
     border-radius: 5px;
     
     .detail-title {

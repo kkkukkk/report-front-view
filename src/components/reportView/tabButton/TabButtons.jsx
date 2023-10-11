@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
 import TabButton from "./TabButton"
 
+const pathInfo = {
+    "/": 0,
+    "/plan": 1
+}
 const TabButtons = ({handlePageMove}) => {
+    const location = useLocation();
+    useEffect(()=> {
+        setNow(pathInfo[location.pathname]);
+    }, [location.pathname]);
     const [now, setNow] = useState(0);
     const tabList = [
         { name: "업무실적", path: "/" },

@@ -11,6 +11,7 @@ const NoData = ({ children }) => {
 
 const StyledNoData = styled.div`
     padding: 10px;
+    margin-top: 10px;
     text-align: center;
     border: 1px solid rgba(0,0,0,.3);
     border-radius: 5px;

@@ -11,7 +11,10 @@ const ResolveList = ({ data, ...res }) => {
             setNow(undefined);
         } else {
             setNow(index);
-            //document.getElementById("resolveList").scrollTop = event.scrollTop;
+            let nowTg = document.getElementById("resolveList").childNodes[index].getBoundingClientRect();
+            console.log(nowTg);
+            // 수정....
+            document.getElementById("resolveList").scrollTop = nowTg.top + document.getElementById("resolveList").scrollTop - 192;
         }
     }
 
@@ -31,8 +34,6 @@ const ResolveList = ({ data, ...res }) => {
                             showDetail(index)
                         }}
                     >
-                        {/*<div className={"text-center"}
-                             data-key={item.sys_date + item.serl_no}>{item.sys_date}-{item.serl_no}</div>*/}
                         <div className={"text-center"}>{item.upmu_name1}</div>
                         <div className={"text-center"}>{item.upmu_name2}</div>
                         <div className={"text-center"}>{item.upmu_name3}</div>
@@ -75,6 +76,15 @@ const StyledResolveList = styled.div`
     &::-webkit-scrollbar {
         display: none;
     }
+    & > div:nth-child(even) {
+        background: #f7fbff;
+    }
+    & > div:nth-child(even):hover {
+        background: #e6f2ff;
+    }
+    & > div:nth-child(odd):hover {
+        background: #fafafa;
+    }
 `;
 
 const DataRow = styled.div`
@@ -84,16 +94,8 @@ const DataRow = styled.div`
     border-bottom: 1px solid rgba(0,0,0,.3);
     cursor: pointer;
     
-    &:nth-child(1) {
-        //border-top: 1px solid rgba(0,0,0,.3);  
-    }
-    
     &:not(.title) {
         cursor: pointer;
-        
-        &:hover {
-            background: #fafafa;
-        }
         .text-center {
             text-align: center;
         }
@@ -111,7 +113,6 @@ const DataRow = styled.div`
         word-break: keep-all;
     }
     
-    /*& > div:nth-child(1) { width: 7%; min-width: fit-content; }*/
     & > div:nth-child(1) { width: 6%; min-width: fit-content; }
     & > div:nth-child(2) { width: 3%; min-width: fit-content; }
     & > div:nth-child(3) { width: 4%; min-width: fit-content; }
