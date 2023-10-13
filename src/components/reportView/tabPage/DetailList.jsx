@@ -91,6 +91,9 @@ const StyledDetailList = styled.div`
     padding: 10px 10px 15px 10px;
     background: #ececec;
     border-radius: 5px;
+    max-height: 60vh;
+    overflow-y: scroll;
+    border-bottom: 1px solid rgba(0,0,0,.3);
     
     .detail-title {
         display: flex;

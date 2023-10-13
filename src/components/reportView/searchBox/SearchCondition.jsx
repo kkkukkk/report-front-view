@@ -5,12 +5,16 @@ import { setEndDate } from "../../../store/reportView/endDateSlice";
 import { setStartDate } from "../../../store/reportView/startDateSlice";
 import Calendar from 'react-calendar';
 import '../../../css/Calendar.css';
-import ExcelSet from "./excelDownload/ExcelSet";
+import ExcelSet from "../excelDownload/ExcelSet";
+import ReportCheckBox from "./ReportCheckBox";
+import {setReportCheck} from "../../../store/searchCondition/reportCheckSlice";
 
 const SearchCondition = ({ ...res }) => {
     const [searchOn, setSearchOn] = useState(false);
     const startDate = useSelector((state) => state.startDate);
     const endDate = useSelector((state) => state.endDate);
+    const reportCheck = useSelector((state) => state.reportCheck);
+    //...ing
     const dispatch = useDispatch();
 
     return (
@@ -51,9 +55,18 @@ const SearchCondition = ({ ...res }) => {
                 {startDate.startDate.format("YYYY년 MM월 DD일")} ~ {endDate.endDate.format("YYYY년 MM월 DD일")}
             </PresentSearchCondition>
             <ExcelSet />
+            <ReportCheckBox
+                id={"reportCheck"}
+                text={"보고"}
+                chainChecked={ reportCheck.reportCheck }
+                onChange={() => {
+                    dispatch(setReportCheck(!reportCheck.reportCheck))
+                }}
+            />
         </StyledSearchCondition>
     );
 };
+
 
 const StyledSearchCondition = styled.div`
     position: relative;

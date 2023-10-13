@@ -6,7 +6,7 @@ import TabButtons from "./tabButton/TabButtons";
 import Plan from "./tabPage/Plan";
 import Result from  "./tabPage/Result";
 import Total from "./tabPage/Total";
-import SearchCondition from "./tabPage/SearchCondition";
+import SearchCondition from "./searchBox/SearchCondition";
 
 const ReportView = () => {
     const navigate = useNavigate();

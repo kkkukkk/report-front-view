@@ -4,7 +4,7 @@ import CheckFrac from "./CheckFrac";
 import {useSelector} from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
-import excelUtil from "../../../util/excelDownload";
+import excelUtil from "../../util/excelDownload";
 
 const Toast = Swal.mixin({
     toast: true,
@@ -97,8 +97,7 @@ const ExcelDownloadModal = () => {
                 reportData,
                 planData
             };
-            console.log(tmp); // 계속...
-            excelUtil.excelDownload(tmp);
+            let result = excelUtil.excelDownload(tmp);
         }
     }
 

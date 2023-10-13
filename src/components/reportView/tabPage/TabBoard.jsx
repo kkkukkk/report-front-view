@@ -11,6 +11,7 @@ const TabBoard = ({ tab }) => {
     const [endDateDirection, setEndDateDirection] = useState("asc");
     const startDate = useSelector((state) => state.startDate).startDate.format("yyyyMMDD");
     const endDate = useSelector((state) => state.endDate).endDate.format("yyyyMMDD");
+    const reportCheck = useSelector((state) => state.reportCheck.reportCheck);
 
     const sortByKey = (a, b) => (a.sys_date + a.serl_no) - (b.sys_date + b.serl_no);
     const sortByStartDate = (a,b) => a.str_date < b.str_date ? -1 : a.str_date > b.str_date ? 1 : 0;
@@ -52,7 +53,7 @@ const TabBoard = ({ tab }) => {
                     fromdate: startDate,
                     todate: endDate,
                     proid: handleTab(tab),
-                    bogoid: 1
+                    bogoid: reportCheck ? '1' : '%',
                 }
             },
         ).then( result => {
@@ -62,7 +63,7 @@ const TabBoard = ({ tab }) => {
                 setReportData(result.data);
             }
         })
-    }, [startDate, endDate, tab]);
+    }, [startDate, endDate, reportCheck, tab]);
 
     return (
         <StyledTabBoard>

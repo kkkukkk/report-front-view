@@ -7,7 +7,9 @@ const ExcelSet = () => {
 
     return (
         <StyledExcelSet>
-            <ExcelDownloadButton onClick={() => setExcelModalOn(excelModalOn => !excelModalOn)}>
+            <ExcelDownloadButton
+                onClick={() => setExcelModalOn(excelModalOn => !excelModalOn)}
+            >
                 엑셀 다운로드
             </ExcelDownloadButton>
             {excelModalOn && <ExcelDownloadModal />}

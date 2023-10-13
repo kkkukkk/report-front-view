@@ -15,8 +15,10 @@ const excelUtil = {
             const fileData = await wb.xlsx.writeBuffer();
             const blob = new Blob([fileData], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
             saveAs(blob, moment().format("YYYY년 MM월") + " 업무보고.xlsx");
+            return true;
         } catch (error) {
-             console.log(error);
+            console.log(error);
+            return false;
         }
     }
 }
