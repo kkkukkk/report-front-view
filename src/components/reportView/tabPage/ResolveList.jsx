@@ -29,13 +29,16 @@ const ResolveList = ({ data, ...res }) => {
                     key={index}
                 >
                     <DataRow
-                        className={"resultData"}
+                        className={item.bogo !== null ? "bogo" : ""}
                         onClick={() => {
                             showDetail(index)
                         }}
                     >
                         <div className={"text-center"}>{item.upmu_name1}</div>
-                        <div className={"text-center"}>{item.upmu_name2}</div>
+                        <div className={"text-center double-row"}>
+                            <div>{item.upmu_name2}</div>
+                            <div>{item.work_day}</div>
+                        </div>
                         <div className={"text-center"}>{item.upmu_name3}</div>
                         <div className={"text-center"}>{item.charge_man}</div>
                         <div className={"text-center"}>
@@ -93,6 +96,16 @@ const DataRow = styled.div`
     padding: 10px;
     border-bottom: 1px solid rgba(0,0,0,.3);
     cursor: pointer;
+  
+    &.bogo {
+        font-weight: bolder;
+    }
+    
+    .double-row {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
     
     &:not(.title) {
         cursor: pointer;

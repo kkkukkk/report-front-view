@@ -69,22 +69,28 @@ const TabBoard = ({ tab }) => {
         <StyledTabBoard>
             <StyledTitleRow>
                 <div>회사</div>
-                <div>구분</div>
+                <div className={"double-row"}>
+                    <div>구분</div>
+                    <div>공수(일)</div>
+                </div>
                 <div>업무분류</div>
                 <div onClick={() => {
                     handleSort("chargeuser", keyDirection)
                     setIKeyDirection(keyDirection === "asc" ? "desc" : "asc")
                 }}>담당자</div>
-                <div>
-                    <span onClick={() => {
-                        handleSort("startdate", startDateDirection)
-                        setStartDateDirection(startDateDirection === "asc" ? "desc" : "asc")
-                    }}>시작 </span>
-                    /
-                    <span onClick={() => {
-                        handleSort("enddate", endDateDirection)
-                        setEndDateDirection(endDateDirection === "asc" ? "desc" : "asc")
-                    }}> 종료</span>
+                <div className={"double-row"}>
+                    <div>
+                        <span onClick={() => {
+                            handleSort("startdate", startDateDirection)
+                            setStartDateDirection(startDateDirection === "asc" ? "desc" : "asc")
+                        }}>시작</span>
+                    </div>
+                    <div>
+                        <span onClick={() => {
+                            handleSort("enddate", endDateDirection)
+                            setEndDateDirection(endDateDirection === "asc" ? "desc" : "asc")
+                        }}>종료</span>
+                    </div>
                 </div>
                 <div>업무명</div>
                 <div>요구사항</div>
@@ -110,6 +116,12 @@ const StyledTitleRow = styled.div`
     font-weight: bold;
     background: #f6f6f6;
     text-align: center;
+    
+    .double-row {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
     
     & > div:nth-child(1) { width: 6%; min-width: fit-content; }
     & > div:nth-child(2) { width: 3%; min-width: fit-content; }
