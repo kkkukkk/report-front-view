@@ -18,9 +18,9 @@ const ReportView = () => {
             <TabButtons handlePageMove={handlePageMove}></TabButtons>
             <StyledContentWrap>
                 <Routes>
-                    <Route  path={"/"} element={<Result />}></Route>
-                    <Route  path={"/plan"} element={<Plan />}></Route>
-                    <Route  path={"/total"} element={<Total />}></Route>
+                    <Route path={"/"} element={<Result />}></Route>
+                    <Route path={"/plan"} element={<Plan />}></Route>
+                    <Route path={"/total"} element={<Total />}></Route>
                 </Routes>
             </StyledContentWrap>
         </StyledReportView>
