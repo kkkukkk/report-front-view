@@ -11,10 +11,6 @@ const ResolveList = ({ data, ...res }) => {
             setNow(undefined);
         } else {
             setNow(index);
-            let nowTg = document.getElementById("resolveList").childNodes[index].getBoundingClientRect();
-            console.log(nowTg);
-            // 수정....
-            document.getElementById("resolveList").scrollTop = nowTg.top + document.getElementById("resolveList").scrollTop - 192;
         }
     }
 
@@ -96,7 +92,7 @@ const DataRow = styled.div`
     padding: 10px;
     border-bottom: 1px solid rgba(0,0,0,.3);
     cursor: pointer;
-  
+    font-size: 14px;
     &.bogo {
         font-weight: bolder;
     }
@@ -127,7 +123,7 @@ const DataRow = styled.div`
     }
     
     & > div:nth-child(1) { width: 6%; min-width: fit-content; }
-    & > div:nth-child(2) { width: 3%; min-width: fit-content; }
+    & > div:nth-child(2) { width: 4%; min-width: fit-content; }
     & > div:nth-child(3) { width: 4%; min-width: fit-content; }
     & > div:nth-child(4) { width: 4%; min-width: fit-content; }
     & > div:nth-child(5) { width: 5%; }

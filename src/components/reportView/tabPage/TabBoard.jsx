@@ -12,6 +12,7 @@ const TabBoard = ({ tab }) => {
     const startDate = useSelector((state) => state.startDate).startDate.format("yyyyMMDD");
     const endDate = useSelector((state) => state.endDate).endDate.format("yyyyMMDD");
     const reportCheck = useSelector((state) => state.reportCheck.reportCheck);
+    const department = useSelector((state) => state.department);
 
     const sortByKey = (a, b) => (a.sys_date + a.serl_no) - (b.sys_date + b.serl_no);
     const sortByStartDate = (a,b) => a.str_date < b.str_date ? -1 : a.str_date > b.str_date ? 1 : 0;
@@ -54,6 +55,7 @@ const TabBoard = ({ tab }) => {
                     todate: endDate,
                     proid: handleTab(tab),
                     bogoid: reportCheck ? '1' : '%',
+                    dept_code: department.department,
                 }
             },
         ).then( result => {
@@ -63,7 +65,7 @@ const TabBoard = ({ tab }) => {
                 setReportData(result.data);
             }
         })
-    }, [startDate, endDate, reportCheck, tab]);
+    }, [startDate, endDate, reportCheck, department, tab]);
 
     return (
         <StyledTabBoard>
@@ -71,7 +73,7 @@ const TabBoard = ({ tab }) => {
                 <div>회사</div>
                 <div className={"double-row"}>
                     <div>구분</div>
-                    <div>공수(일)</div>
+                    <div>공수(*8h)</div>
                 </div>
                 <div>업무분류</div>
                 <div onClick={() => {
@@ -124,13 +126,13 @@ const StyledTitleRow = styled.div`
     }
     
     & > div:nth-child(1) { width: 6%; min-width: fit-content; }
-    & > div:nth-child(2) { width: 3%; min-width: fit-content; }
+    & > div:nth-child(2) { width: 4%; min-width: fit-content; }
     & > div:nth-child(3) { width: 4%; min-width: fit-content; }
     & > div:nth-child(4) { width: 4%; min-width: fit-content; cursor: pointer}
     & > div:nth-child(4):hover { text-decoration: underline }
     & > div:nth-child(5) { width: 5%; }
     & > div:nth-child(5) > span { cursor: pointer; }
-    & > div:nth-child(5) > span:hover { text-decoration: underline; }
+    & > div:nth-child(5) > div > span:hover { text-decoration: underline; }
     & > div:nth-child(6) { width: 15%; }
     & > div:nth-child(7) { width: 24%; }
     & > div:nth-child(8) { width: 30%; }

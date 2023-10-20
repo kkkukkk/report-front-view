@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../include/Header';
-import "../util/commonUtil"
+import "../../util/commonUtil"
 
 const Layout = ({ children }) => {
 

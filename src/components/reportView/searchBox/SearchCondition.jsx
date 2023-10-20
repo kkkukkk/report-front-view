@@ -7,6 +7,7 @@ import Calendar from 'react-calendar';
 import '../../../css/Calendar.css';
 import ExcelSet from "../excelDownload/ExcelSet";
 import ReportCheckBox from "./ReportCheckBox";
+import Department from "./Department";
 import {setReportCheck} from "../../../store/searchCondition/reportCheckSlice";
 
 const SearchCondition = ({ ...res }) => {
@@ -54,7 +55,7 @@ const SearchCondition = ({ ...res }) => {
             <PresentSearchCondition>
                 {startDate.startDate.format("YYYY년 MM월 DD일")} ~ {endDate.endDate.format("YYYY년 MM월 DD일")}
             </PresentSearchCondition>
-            <ExcelSet />
+            <Department />
             <ReportCheckBox
                 id={"reportCheck"}
                 text={"보고"}
@@ -63,6 +64,7 @@ const SearchCondition = ({ ...res }) => {
                     dispatch(setReportCheck(!reportCheck.reportCheck))
                 }}
             />
+            <ExcelSet />
         </StyledSearchCondition>
     );
 };

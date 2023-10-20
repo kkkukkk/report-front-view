@@ -16,6 +16,7 @@ const DetailList = ({ data }) => {
             if (result.data.msg) {
                 setDetailList(null);
             } else {
+                console.log(result.data);
                 setDetailList(result.data);
             }
         });
@@ -43,7 +44,7 @@ const DetailList = ({ data }) => {
                             <div>{item.work_id_name}</div>
                         </div>
                         <div>
-                            <div>공수</div>
+                            <div>공수(*8h)</div>
                             <div>{item.work_day}</div>
                         </div>
                     </div>
@@ -73,7 +74,7 @@ const DetailList = ({ data }) => {
             <div className={"detail-title"}><span className={"status"}>{data.pro_nm}</span>{data.work_title}</div>
             <div className={"detail-key-number"}>번호 : {data.sys_date}-{data.serl_no}</div>
             <div className={"detail-date"}>기간 : {formatDate(data.str_date.toString())} ~ {formatDate(data.end_date.toString())}</div>
-            <div className={"detail-request-reason"}>사유 : {data.work_req_desc}</div>
+            <div className={"detail-request-reason"}><div>사유 :</div><div className={"request-description"}>{data.work_req_desc}</div></div>
             <div className={"detail-result"}>
                 <div className={"detail-work-list-title"}>※ 업무 내용</div>
                 {data.work_result}
@@ -118,6 +119,9 @@ const StyledDetailList = styled.div`
     .detail-request-reason {
         margin-bottom: 5px;
         word-break: keep-all;
+        .request-description {
+            padding: 5px 0px;
+        }
     }
 
     .detail-result {

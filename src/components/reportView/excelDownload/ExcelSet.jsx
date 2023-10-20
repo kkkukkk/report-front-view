@@ -4,6 +4,9 @@ import ExcelDownloadModal from "./ExcelDownloadModal";
 
 const ExcelSet = () => {
     const [excelModalOn, setExcelModalOn] = useState(false);
+    const handleModalOn = (value) => {
+        setExcelModalOn(value);
+    }
 
     return (
         <StyledExcelSet>
@@ -12,7 +15,7 @@ const ExcelSet = () => {
             >
                 엑셀 다운로드
             </ExcelDownloadButton>
-            {excelModalOn && <ExcelDownloadModal />}
+            {excelModalOn && <ExcelDownloadModal handleModalOn={handleModalOn}/>}
         </StyledExcelSet>
     );
 };

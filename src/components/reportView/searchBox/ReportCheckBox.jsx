@@ -10,9 +10,9 @@ const StyledReportCheckBox= styled.label`
     padding: 5px 10px;
     border: 1px solid rgba(0,0,0,.3);
     border-radius: 5px;
-    background: white;
+    background: aliceblue;
     & > * {
-      pointer-events: none;
+        pointer-events: none;
     }
 `;
 

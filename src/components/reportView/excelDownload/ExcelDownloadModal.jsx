@@ -4,7 +4,7 @@ import CheckFrac from "./CheckFrac";
 import {useSelector} from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
-import excelUtil from "../../util/excelDownload";
+import excelUtil from "../../../util/excelDownload";
 
 const Toast = Swal.mixin({
     toast: true,
@@ -15,13 +15,15 @@ const Toast = Swal.mixin({
     timerProgressBar: true,
 })
 
-const ExcelDownloadModal = () => {
+const ExcelDownloadModal = ({handleModalOn}) => {
     const [reportData, setReportData] = useState(null);
     const [planData, setPlanData] = useState(null);
     const [checkReport, setCheckReport] = useState(false);
     const [checkPlan, setCheckPlan] = useState(false);
     const startDate = useSelector((state) => state.startDate).startDate.format("yyyyMMDD");
     const endDate = useSelector((state) => state.endDate).endDate.format("yyyyMMDD");
+    const reportCheck = useSelector((state) => state.reportCheck);
+    const department = useSelector((state) => state.department);
 
     const handleData = (type) => {
         switch (type) {
@@ -33,7 +35,8 @@ const ExcelDownloadModal = () => {
                                 fromdate: startDate,
                                 todate: endDate,
                                 proid: 0,
-                                bogoid: 1
+                                bogoid: reportCheck ? '1' : '%',
+                                dept_code: department.department,
                             }
                         },
                     ).then( result => {
@@ -61,7 +64,8 @@ const ExcelDownloadModal = () => {
                                 fromdate: startDate,
                                 todate: endDate,
                                 proid: 1,
-                                bogoid: 1
+                                bogoid: reportCheck ? '1' : '%',
+                                dept_code: department.department,
                             }
                         },
                     ).then( result => {
@@ -97,7 +101,8 @@ const ExcelDownloadModal = () => {
                 reportData,
                 planData
             };
-            let result = excelUtil.excelDownload(tmp);
+            excelUtil.excelDownload(tmp);
+            handleModalOn(false);
         }
     }
 
