@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
 import excelUtil from "../../../util/excelDownload";
+import Constants from "../../../Constants.json";
 
 const Toast = Swal.mixin({
     toast: true,
@@ -30,7 +31,7 @@ const ExcelDownloadModal = ({handleModalOn}) => {
             case "plan":
                 if (!checkPlan) {
                     setCheckPlan(true);
-                    axios.get('https://always.samhwa.com/api/etc/job/workresult',{
+                    axios.get(Constants.apiUri + '/etc/job/workresult',{
                             params: {
                                 fromdate: startDate,
                                 todate: endDate,
@@ -59,7 +60,7 @@ const ExcelDownloadModal = ({handleModalOn}) => {
             case "result":
                 if (!checkReport) {
                     setCheckReport(true);
-                    axios.get('https://always.samhwa.com/api/etc/job/workresult',{
+                    axios.get(Constants.apiUri + '/etc/job/workresult',{
                             params: {
                                 fromdate: startDate,
                                 todate: endDate,
@@ -105,6 +106,8 @@ const ExcelDownloadModal = ({handleModalOn}) => {
             handleModalOn(false);
         }
     }
+
+
 
     return (
         <StyledExcelDownloadModal>

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from  "axios";
 import styled from "styled-components";
 import NoData from "./NoData";
+import Constants from "../../../Constants.json";
 
 const DetailList = ({ data }) => {
     const [detailList, setDetailList] = useState(null);
 
     useEffect(()=>{
-        axios.get('https://always.samhwa.com/api/etc/job/workdetail',{
+        axios.get(Constants.apiUri + '/etc/job/workdetail',{
             params: {
                 sysdate: data.sys_date,
                 serlno: data.serl_no

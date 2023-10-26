@@ -3,12 +3,16 @@ import styled from "styled-components";
 import {useSelector} from "react-redux";
 import axios from "axios";
 import ResolveList from "./ResolveList";
+import Constants from "../../../Constants.json";
+import FullModal from "./FullModal";
 
 const TabBoard = ({ tab }) => {
     const [reportData, setReportData] = useState(null);
     const [keyDirection, setIKeyDirection] = useState("asc");
     const [startDateDirection, setStartDateDirection] = useState("asc");
     const [endDateDirection, setEndDateDirection] = useState("asc");
+    const [modalData, setModalData] = useState(null);
+    const [fullModalOn, setFullModalOn] = useState(false);
     const startDate = useSelector((state) => state.startDate).startDate.format("yyyyMMDD");
     const endDate = useSelector((state) => state.endDate).endDate.format("yyyyMMDD");
     const reportCheck = useSelector((state) => state.reportCheck.reportCheck);
@@ -48,8 +52,16 @@ const TabBoard = ({ tab }) => {
         }
     }
 
+    const handleFullModalOn = (value) => {
+        setFullModalOn(value);
+    }
+
+    const handleModalData = (value) => {
+        setModalData(value);
+    }
+
     useEffect(() => {
-        axios.get('https://always.samhwa.com/api/etc/job/workresult',{
+        axios.get(Constants.apiUri + '/etc/job/workresult',{
                 params: {
                     fromdate: startDate,
                     todate: endDate,
@@ -59,6 +71,7 @@ const TabBoard = ({ tab }) => {
                 }
             },
         ).then( result => {
+            console.log(result.data);
             if (result.data.msg) {
                 setReportData(null);
             } else {
@@ -100,7 +113,14 @@ const TabBoard = ({ tab }) => {
             </StyledTitleRow>
             <ResolveList
                 data={reportData}
+                handleFullModalOn={handleFullModalOn}
+                handleModalData={handleModalData}
             ></ResolveList>
+            {fullModalOn && <FullModal
+                data={"..."}
+                handleFullModalOn={handleFullModalOn}
+                modalData={modalData}
+            ></FullModal>}
         </StyledTabBoard>
     );
 };

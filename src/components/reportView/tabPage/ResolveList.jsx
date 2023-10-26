@@ -3,7 +3,7 @@ import styled from "styled-components";
 import DetailList from "./DetailList";
 import NoData from "./NoData";
 
-const ResolveList = ({ data, ...res }) => {
+const ResolveList = ({ data, handleFullModalOn, handleModalData, ...res }) => {
     const [now, setNow] = useState();
 
     const showDetail = (index) => {
@@ -16,6 +16,13 @@ const ResolveList = ({ data, ...res }) => {
 
     const formatDate = (date) => {
         return date.substring(0,4) + "/" + date.substring(4,6) + "/" + date.substring(6,8);
+    }
+
+    const relatedWork = (e, item) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleFullModalOn(true);
+        handleModalData(item);
     }
 
     const solveList = (data) => {
@@ -42,7 +49,10 @@ const ResolveList = ({ data, ...res }) => {
                             <div>-</div>
                             <div>{formatDate(item.end_date.toString())}</div>
                         </div>
-                        <div className={"word-break"}>{item.work_title}</div>
+                        <div className={"word-break work-title"}>
+                            <div>{item.work_title}</div>
+                            {item.org_no && item.org_title && <div><button onClick={event => {relatedWork(event, item)}}>관련전산화</button></div>}
+                        </div>
                         <div className={"word-break"}>{item.work_req_desc}</div>
                         <div className={"word-break"}>{item.work_result}</div>
                     </DataRow>
@@ -120,6 +130,14 @@ const DataRow = styled.div`
         -webkit-line-clamp: 5;
         -webkit-box-orient: vertical;
         word-break: keep-all;
+    }
+    & > div.work-title {
+        display: flex;
+        flex-direction: column;
+        & > div:nth-child(2) {
+            margin-top: 3rem;
+            align-self: flex-end;
+        }
     }
     
     & > div:nth-child(1) { width: 6%; min-width: fit-content; }
