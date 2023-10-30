@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 import DetailList from "./DetailList";
 import NoData from "./NoData";
 
-const ResolveList = ({ data, handleFullModalOn, handleModalData, ...res }) => {
+const ResolveList = ({ data, handleFullModalOn, handleModalDataKey, ...res }) => {
     const [now, setNow] = useState();
 
     const showDetail = (index) => {
@@ -22,7 +22,13 @@ const ResolveList = ({ data, handleFullModalOn, handleModalData, ...res }) => {
         e.preventDefault();
         e.stopPropagation();
         handleFullModalOn(true);
-        handleModalData(item);
+        handleModalDataKey(item);
+    }
+
+    const test = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log(e.target.getBoundingClientRect());
     }
 
     const solveList = (data) => {
@@ -33,8 +39,9 @@ const ResolveList = ({ data, handleFullModalOn, handleModalData, ...res }) => {
                 >
                     <DataRow
                         className={item.bogo !== null ? "bogo" : ""}
-                        onClick={() => {
-                            showDetail(index)
+                        onClick={(event) => {
+                            showDetail(index);
+                            test(event);
                         }}
                     >
                         <div className={"text-center"}>{item.upmu_name1}</div>
@@ -51,7 +58,7 @@ const ResolveList = ({ data, handleFullModalOn, handleModalData, ...res }) => {
                         </div>
                         <div className={"word-break work-title"}>
                             <div>{item.work_title}</div>
-                            {item.org_no && item.org_title && <div><button onClick={event => {relatedWork(event, item)}}>관련전산화</button></div>}
+                            {item.org_no && item.org_title && <div><button className={"relate-work"} onClick={event => {relatedWork(event, item.org_no)}}>원본전산화</button></div>}
                         </div>
                         <div className={"word-break"}>{item.work_req_desc}</div>
                         <div className={"word-break"}>{item.work_result}</div>
@@ -78,8 +85,8 @@ const ResolveList = ({ data, handleFullModalOn, handleModalData, ...res }) => {
 const StyledResolveList = styled.div`
     background: white;
     overflow-y: scroll;
-    min-height: 95%;
-    max-height: 95%;
+    min-height: 93%;
+    max-height: 93%;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
     &::-webkit-scrollbar {
@@ -123,6 +130,12 @@ const DataRow = styled.div`
     & > div {
         white-space: pre-line;
     }
+    & > *:not(button) {
+        pointer-events: none;
+    }
+    & .relate-work {
+        pointer-events: initial;
+    }
     & > div.word-break {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -139,7 +152,15 @@ const DataRow = styled.div`
             align-self: flex-end;
         }
     }
-    
+    .relate-work {
+        padding: 5px 8px;
+        font-size: 16px;
+        color: white;
+        background: lightslategray;
+    }
+    .relate-work:hover {
+        background: lightsteelblue;
+    } 
     & > div:nth-child(1) { width: 6%; min-width: fit-content; }
     & > div:nth-child(2) { width: 4%; min-width: fit-content; }
     & > div:nth-child(3) { width: 4%; min-width: fit-content; }

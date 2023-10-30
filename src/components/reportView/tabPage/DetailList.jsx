@@ -17,7 +17,6 @@ const DetailList = ({ data }) => {
             if (result.data.msg) {
                 setDetailList(null);
             } else {
-                console.log(result.data);
                 setDetailList(result.data);
             }
         });

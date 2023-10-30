@@ -1,6 +1,71 @@
 import React from 'react';
 import styled from "styled-components";
 
+const FullModal = ({modalData, handleFullModalOn}) => {
+
+    return (
+        <StyledFullModal
+            onClick={event => {
+                handleFullModalOn(false);
+            }}
+        >
+            {modalData && <ModalContent
+                onClick={event => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }}
+            >
+                <InnerTitle>
+                    원본전산화
+                </InnerTitle>
+                <ModalCloseButton onClick={event => {handleFullModalOn(false);}}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                    </svg>
+                </ModalCloseButton>
+                <InnerContents>
+                    <div>
+                        <div><span>{modalData[0].etc_no}</span>{modalData[0].work_title}</div>
+                        <div className={"upmu-info-set"}>
+                            <div>{modalData[0].upmu1}</div>
+                            <div>{modalData[0].upmu2}</div>
+                            <div>{modalData[0].upmu3}</div>
+                        </div>
+                        <div className={"main-info"}>
+                            <div>담당자</div>
+                            <div>{modalData[0].han_nm}</div>
+                        </div>
+                        <div className={"main-info"}>
+                            <div>사유</div>
+                            <div>{modalData[0].work_req_desc}</div>
+                        </div>
+                        <div className={"main-info"}>
+                            <div>작업내역</div>
+                            <div>{modalData[0].work_result}</div>
+                        </div>
+                        {modalData[0].others && <div className={"others"}>
+                            {modalData[0].others.map((item, index) => (
+                                <div key={index}>
+                                    <div>
+                                        <div>{item.etc_no}</div>
+                                        {/*<div>{item.work_title}</div>*/}
+                                    </div>
+                                    <div>
+                                        <div>담당자 : {item.han_nm}</div>
+                                        <div>사유 : {item.work_req_desc}</div>
+                                        <div>작업내역 : {item.work_result}</div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>}
+                    </div>
+                </InnerContents>
+            </ModalContent>
+            }
+        </StyledFullModal>
+    );
+};
+
 const StyledFullModal = styled.div`
     position: absolute;
     top: 0;
@@ -23,28 +88,52 @@ const ModalContent = styled.div`
     padding: 20px;
     border-radius: 5px;
     cursor: initial;
+    
+    .upmu-info-set {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 3px;
+        
+        & > div {
+            padding: 4px 8px;
+            border-radius: 5px;
+            border: 1px solid rgba(0,0,0,.1);
+            background: mintcream; 
+            font-size: 14px;
+        }
+    }
+    .main-info {
+        border-top: 1px solid rgba(0,0,0,.1);
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        display: flex;
+    }
+    .main-info > div {
+        padding: 5px;
+        word-break: keep-all;
+    }
+    .main-info > div:first-child {
+        flex: 1;
+        background: rgba(0,0,0,.1);
+    }
+    .main-info > div:last-child {
+        flex: 6;
+    }
 `;
 
 const InnerTitle = styled.div`
     position: relative;
-    display: flex;
-    align-items: center;
     width: 100%;
     height: 5%;
-    gap: 10px;
-    font-size: 18px;
+    font-size: 20px;
+    text-align: center;
     font-weight: bold;
-    & > div:first-child {
-        background: rgba(0,0,0,.1);
-        border-radius: 5px;
-        padding: 5px 10px;
-    }
 `;
 
 const InnerContents = styled.div`
     height: 95%;
     max-height: 95%;
-    padding-top: 20px;
+    padding-top: 10px;
     overflow-y: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -63,10 +152,52 @@ const InnerContents = styled.div`
     & > div {
         height: 100%;
         border-radius: 5px;
-        background: gray;
-        padding: 10px;
     }
-    & > div > div:not(div:last-child) {
+    & > div > div:first-child {
+        font-weight: bold;
+    }
+    & > div > div {
+        margin-bottom: 10px;
+    }
+    & > div > div > span {
+        display: inline-flex;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background: aliceblue;
+        border: 1px solid rgba(0,0,0,.1);
+        margin: 0 8px 0 0;
+    }
+    
+    .others {
+        font-size: 14px;
+        padding-top: 10px;
+        border-top: 5px dotted rgba(0,0,0,.3);
+    }
+    .others > div {
+        padding: 10px;
+        border: 1px solid rgba(0,0,0,.1);
+        border-radius: 5px;
+        background: #fdfdfd;
+    }
+    .others > div:not(div:last-child) {
+        margin-bottom: 5px;
+    }
+    .others > div > div:first-child {
+        display: flex;
+        align-items: center;
+        
+        & > div:first-child {
+            padding: 3px 6px;
+            margin-right: 5px;
+            border-radius: 5px;
+            border: 1px solid rgba(0,0,0,.1);
+            background: aliceblue;
+        }
+    }
+    .others > div > div:last-child {
+        padding: 5px;
+    }
+    .others > div > div:last-child > div:not(div:last-child) {
         margin-bottom: 5px;
     }
 `;
@@ -79,44 +210,5 @@ const ModalCloseButton = styled.div`
     height: 20px;
     cursor: pointer;
 `;
-
-const FullModal = ({modalData, handleFullModalOn}) => {
-    const formatDate = (date) => {
-        return date.substring(0,4) + "/" + date.substring(4,6) + "/" + date.substring(6,8);
-    }
-
-    return (
-        <StyledFullModal
-            onClick={event => {
-                handleFullModalOn(false);
-            }}
-        >
-            <ModalContent
-                onClick={event => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }}
-            >
-                <InnerTitle>
-                    <div>{modalData.sys_date + "-" + modalData.serl_no}</div>
-                    <div>{modalData.work_title}</div>
-                </InnerTitle>
-                <ModalCloseButton onClick={event => {handleFullModalOn(false);}}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
-                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                    </svg>
-                </ModalCloseButton>
-                <InnerContents>
-                    <div>
-                        <div>기간 : {formatDate(modalData.str_date.toString()) + '~' + formatDate(modalData.end_date.toString())}</div>
-                        <div>담당자 : {modalData.charge_man}</div>
-                        <div>사유 : {modalData.work_req_desc}</div>
-                        <div>작업내역 : {modalData.work_result}</div>
-                    </div>
-                </InnerContents>
-            </ModalContent>
-        </StyledFullModal>
-    );
-};
 
 export default FullModal;

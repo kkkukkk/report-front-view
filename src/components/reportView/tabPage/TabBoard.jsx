@@ -8,11 +8,12 @@ import FullModal from "./FullModal";
 
 const TabBoard = ({ tab }) => {
     const [reportData, setReportData] = useState(null);
-    const [keyDirection, setIKeyDirection] = useState("asc");
+    const [keyDirection, setKeyDirection] = useState("asc");
     const [startDateDirection, setStartDateDirection] = useState("asc");
     const [endDateDirection, setEndDateDirection] = useState("asc");
     const [modalData, setModalData] = useState(null);
     const [fullModalOn, setFullModalOn] = useState(false);
+    const [modalDataKey, setModalDataKey] = useState("");
     const startDate = useSelector((state) => state.startDate).startDate.format("yyyyMMDD");
     const endDate = useSelector((state) => state.endDate).endDate.format("yyyyMMDD");
     const reportCheck = useSelector((state) => state.reportCheck.reportCheck);
@@ -56,22 +57,20 @@ const TabBoard = ({ tab }) => {
         setFullModalOn(value);
     }
 
-    const handleModalData = (value) => {
-        setModalData(value);
+    const handleModalDataKey = (value) => {
+        setModalDataKey(value);
     }
 
     useEffect(() => {
         axios.get(Constants.apiUri + '/etc/job/workresult',{
-                params: {
-                    fromdate: startDate,
-                    todate: endDate,
-                    proid: handleTab(tab),
-                    bogoid: reportCheck ? '1' : '%',
-                    dept_code: department.department,
-                }
-            },
-        ).then( result => {
-            console.log(result.data);
+            params: {
+                fromdate: startDate,
+                todate: endDate,
+                proid: handleTab(tab),
+                bogoid: reportCheck ? '1' : '%',
+                dept_code: department.department,
+            }
+        }).then( result => {
             if (result.data.msg) {
                 setReportData(null);
             } else {
@@ -79,6 +78,21 @@ const TabBoard = ({ tab }) => {
             }
         })
     }, [startDate, endDate, reportCheck, department, tab]);
+
+    useEffect(() => {
+        axios.get(Constants.apiUri + '/etc/job/workresultlink',{
+            params: {
+                etcno: modalDataKey,
+            }
+        }).then(result => {
+            if (result.data.msg) {
+                setModalData(null);
+            } else {
+                console.log(result.data);
+                setModalData(result.data);
+            }
+        })
+    },[modalDataKey]);
 
     return (
         <StyledTabBoard>
@@ -91,7 +105,7 @@ const TabBoard = ({ tab }) => {
                 <div>업무분류</div>
                 <div onClick={() => {
                     handleSort("chargeuser", keyDirection)
-                    setIKeyDirection(keyDirection === "asc" ? "desc" : "asc")
+                    setKeyDirection(keyDirection === "asc" ? "desc" : "asc")
                 }}>담당자</div>
                 <div className={"double-row"}>
                     <div>
@@ -114,10 +128,10 @@ const TabBoard = ({ tab }) => {
             <ResolveList
                 data={reportData}
                 handleFullModalOn={handleFullModalOn}
-                handleModalData={handleModalData}
+                handleModalDataKey={handleModalDataKey}
             ></ResolveList>
             {fullModalOn && <FullModal
-                data={"..."}
+                data={modalData}
                 handleFullModalOn={handleFullModalOn}
                 modalData={modalData}
             ></FullModal>}
