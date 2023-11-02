@@ -31,7 +31,7 @@ const SearchCondition = ({ ...res }) => {
                     <DateBox>FROM : {startDate.startDate.format("YYYY-MM-DD")}</DateBox>
                     <Calendar
                         onChange={e => {
-                            setSearchOn(false);
+                            //setSearchOn(false);
                             dispatch(setStartDate(e))
                         }}
                         value={startDate.startDate.toDate()}

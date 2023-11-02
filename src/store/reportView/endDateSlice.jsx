@@ -10,6 +10,7 @@ const endDateSlice = createSlice({
     },
     reducers: {
         setEndDate: (state, action) => {
+            //console.log(state.endDate.format("YYYY-MM-DD") === moment(action.payload).format("YYYY-MM-DD");
             state.endDate = moment(action.payload);
         },
     },
