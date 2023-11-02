@@ -74,6 +74,7 @@ const TabBoard = ({ tab }) => {
             if (result.data.msg) {
                 setReportData(null);
             } else {
+                console.log(result.data);
                 setReportData(result.data);
             }
         })

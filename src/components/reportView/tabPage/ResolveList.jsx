@@ -58,7 +58,10 @@ const ResolveList = ({ data, handleFullModalOn, handleModalDataKey, ...res }) =>
                         </div>
                         <div className={"word-break work-title"}>
                             <div>{item.work_title}</div>
-                            {item.org_no && item.org_title && <div><button className={"relate-work"} onClick={event => {relatedWork(event, item.org_no)}}>원본전산화</button></div>}
+                            <div>
+                                {item.org_no && item.org_title && <div><button className={"relate-work"} onClick={event => {relatedWork(event, item.org_no)}}>원본전산화</button></div>}
+                                {item.low_cnt > 1 && <div><button className={"relate-work lower"} onClick={event => {relatedWork(event, item.sys_date + item.serl_no)}}>하위전산화</button></div>}
+                            </div>
                         </div>
                         <div className={"word-break"}>{item.work_req_desc}</div>
                         <div className={"word-break"}>{item.work_result}</div>
@@ -107,35 +110,40 @@ const DataRow = styled.div`
     display: flex;
     gap: 20px;
     padding: 10px;
-    border-bottom: 1px solid rgba(0,0,0,.3);
+    border-bottom: 1px solid rgba(0, 0, 0, .3);
     cursor: pointer;
     font-size: 14px;
+
     &.bogo {
         font-weight: bolder;
     }
-    
+
     .double-row {
         display: flex;
         flex-direction: column;
         gap: 5px;
     }
-    
+
     &:not(.title) {
         cursor: pointer;
+
         .text-center {
             text-align: center;
         }
     }
-    
+
     & > div {
         white-space: pre-line;
     }
+
     & > *:not(button) {
         pointer-events: none;
     }
+
     & .relate-work {
         pointer-events: initial;
     }
+
     & > div.word-break {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -144,31 +152,73 @@ const DataRow = styled.div`
         -webkit-box-orient: vertical;
         word-break: keep-all;
     }
+
     & > div.work-title {
         display: flex;
         flex-direction: column;
+
         & > div:nth-child(2) {
+            display: flex;
+            gap: 5px;
             margin-top: 3rem;
             align-self: flex-end;
         }
     }
+
     .relate-work {
         padding: 5px 8px;
         font-size: 16px;
         color: white;
+        background: lightcoral;
+    }
+
+    .relate-work:hover {
+        background: #e96b6b;
+    }
+
+    .relate-work.lower {
         background: lightslategray;
     }
-    .relate-work:hover {
-        background: lightsteelblue;
-    } 
-    & > div:nth-child(1) { width: 6%; min-width: fit-content; }
-    & > div:nth-child(2) { width: 4%; min-width: fit-content; }
-    & > div:nth-child(3) { width: 4%; min-width: fit-content; }
-    & > div:nth-child(4) { width: 4%; min-width: fit-content; }
-    & > div:nth-child(5) { width: 5%; }
-    & > div:nth-child(6) { width: 15%; }
-    & > div:nth-child(7) { width: 24%; }
-    & > div:nth-child(8) { width: 30%; }
+
+    .relate-work.lower:hover {
+        background: #3e4854;
+    }
+
+    & > div:nth-child(1) {
+        width: 6%;
+        min-width: fit-content;
+    }
+
+    & > div:nth-child(2) {
+        width: 4%;
+        min-width: fit-content;
+    }
+
+    & > div:nth-child(3) {
+        width: 4%;
+        min-width: fit-content;
+    }
+
+    & > div:nth-child(4) {
+        width: 4%;
+        min-width: fit-content;
+    }
+
+    & > div:nth-child(5) {
+        width: 5%;
+    }
+
+    & > div:nth-child(6) {
+        width: 15%;
+    }
+
+    & > div:nth-child(7) {
+        width: 24%;
+    }
+
+    & > div:nth-child(8) {
+        width: 30%;
+    }
 `;
 
 

@@ -36,24 +36,40 @@ const FullModal = ({modalData, handleFullModalOn}) => {
                             <div>{modalData[0].han_nm}</div>
                         </div>
                         <div className={"main-info"}>
-                            <div>사유</div>
+                            <div>요청사유</div>
                             <div>{modalData[0].work_req_desc}</div>
                         </div>
                         <div className={"main-info"}>
-                            <div>작업내역</div>
+                            <div>실적</div>
                             <div>{modalData[0].work_result}</div>
                         </div>
                         {modalData[0].others && <div className={"others"}>
                             {modalData[0].others.map((item, index) => (
                                 <div key={index}>
-                                    <div>
-                                        <div>{item.etc_no}</div>
-                                        {/*<div>{item.work_title}</div>*/}
+                                    <div className={"enter-symbol"}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                                            <path fillRule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
+                                        </svg>
                                     </div>
                                     <div>
-                                        <div>담당자 : {item.han_nm}</div>
-                                        <div>사유 : {item.work_req_desc}</div>
-                                        <div>작업내역 : {item.work_result}</div>
+                                        <div>
+                                            <div>{item.etc_no}</div>
+                                            {/*<div>{item.work_title}</div>*/}
+                                        </div>
+                                        <div>
+                                            <div className={"other-info"}>
+                                                <div>담당자</div>
+                                                <div>{item.han_nm}</div>
+                                            </div>
+                                            <div className={"other-info"}>
+                                                <div>요청사유</div>
+                                                <div>{item.work_req_desc}</div>
+                                            </div>
+                                            <div className={"other-info"}>
+                                                <div>실적</div>
+                                                <div>{item.work_result}</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -99,7 +115,7 @@ const ModalContent = styled.div`
             padding: 4px 8px;
             border-radius: 5px;
             border: 1px solid rgba(0,0,0,.1);
-            background: mintcream; 
+            background: #fff6e0; 
             font-size: 14px;
         }
     }
@@ -174,19 +190,23 @@ const InnerContents = styled.div`
         border-top: 5px dotted rgba(0,0,0,.3);
     }
     .others > div {
-        padding: 10px;
+        display: flex;
+        align-items: flex-start;
+    }
+    .others > div > div:nth-child(2) {
         border: 1px solid rgba(0,0,0,.1);
+        padding: 10px;
+        margin-left: 5px;
+        width: 100%;
         border-radius: 5px;
         background: #fdfdfd;
     }
-    .others > div:not(div:last-child) {
-        margin-bottom: 5px;
-    }
-    .others > div > div:first-child {
+    .others > div > div > div:first-child {
         display: flex;
         align-items: center;
+        gap: 10px;
         
-        & > div:first-child {
+        & > div:last-child {
             padding: 3px 6px;
             margin-right: 5px;
             border-radius: 5px;
@@ -194,11 +214,28 @@ const InnerContents = styled.div`
             background: aliceblue;
         }
     }
-    .others > div > div:last-child {
-        padding: 5px;
-    }
-    .others > div > div:last-child > div:not(div:last-child) {
+    .others > div > div:last-child > div:not(div:last-child),
+    .others > div > div:last-child > div:last-child > div:not(div:last-child) {
         margin-bottom: 5px;
+    }
+    .other-info {
+        display: flex;
+        border-top: 1px solid rgba(0,0,0,.1);
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        
+        & > div {
+            padding: 5px;
+        }
+        & > div:first-child {
+            flex: 1;
+            background: rgba(0,0,0,.1);
+        }
+        & > div:last-child {
+            flex: 5;
+        }
+    }
+    .others .enter-symbol {
+        margin-top: 5px;
     }
 `;
 

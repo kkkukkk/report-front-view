@@ -74,9 +74,9 @@ const DetailList = ({ data }) => {
             <div className={"detail-title"}><span className={"status"}>{data.pro_nm}</span>{data.work_title}</div>
             <div className={"detail-key-number"}>번호 : {data.sys_date}-{data.serl_no}</div>
             <div className={"detail-date"}>기간 : {formatDate(data.str_date.toString())} ~ {formatDate(data.end_date.toString())}</div>
-            <div className={"detail-request-reason"}><div>사유 :</div><div className={"request-description"}>{data.work_req_desc}</div></div>
+            <div className={"detail-request-reason"}><div>요청사유 :</div><div className={"request-description"}>{data.work_req_desc}</div></div>
             <div className={"detail-result"}>
-                <div className={"detail-work-list-title"}>※ 업무 내용</div>
+                <div className={"detail-work-list-title"}>■ 실적</div>
                 {data.work_result}
             </div>
             <StyledDetailBoard>
