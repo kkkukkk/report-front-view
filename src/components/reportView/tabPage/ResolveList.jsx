@@ -60,7 +60,7 @@ const ResolveList = ({ data, handleFullModalOn, handleModalDataKey, ...res }) =>
                             <div>{item.work_title}</div>
                             <div>
                                 {item.org_no && item.org_title && <div><button className={"relate-work"} onClick={event => {relatedWork(event, item.org_no)}}>원본전산화</button></div>}
-                                {item.low_cnt > 1 && <div><button className={"relate-work lower"} onClick={event => {relatedWork(event, item.sys_date + item.serl_no)}}>하위전산화</button></div>}
+                                {item.low_cnt > 0 && <div><button className={"relate-work lower"} onClick={event => {relatedWork(event, item.sys_date + item.serl_no)}}>하위전산화</button></div>}
                             </div>
                         </div>
                         <div className={"word-break"}>{item.work_req_desc}</div>
