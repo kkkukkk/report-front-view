@@ -3,18 +3,42 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { setEndDate } from "../../../store/reportView/endDateSlice";
 import { setStartDate } from "../../../store/reportView/startDateSlice";
+import { setPlanEndDate } from "../../../store/reportView/planEndDateSlice";
+import { setPlanStartDate } from "../../../store/reportView/planStartDateSlice";
 import Calendar from 'react-calendar';
 import '../../../css/Calendar.css';
+import moment from "moment";
 import ExcelSet from "../excelDownload/ExcelSet";
 import ReportCheckBox from "./ReportCheckBox";
 import Department from "./Department";
-import {setReportCheck} from "../../../store/searchCondition/reportCheckSlice";
+import { setReportCheck } from "../../../store/searchCondition/reportCheckSlice";
+import { setPlanReportCheck } from "../../../store/searchCondition/planReportCheckSlice";
+import Swal from "sweetalert2";
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'center',
+    showConfirmButton: false,
+    width: 'fit-contents',
+    timer: 1500,
+    timerProgressBar: true,
+})
 
 const SearchCondition = ({ ...res }) => {
     const [searchOn, setSearchOn] = useState(false);
     const startDate = useSelector((state) => state.startDate);
     const endDate = useSelector((state) => state.endDate);
+    const planStartDate = useSelector((state) => state.planStartDate);
+    const planEndDate = useSelector((state) => state.planEndDate);
     const reportCheck = useSelector((state) => state.reportCheck);
+    const planReportCheck = useSelector((state) => state.planReportCheck);
+
+    const startDateString = startDate.startDate.format("YYYYMMDD");
+    const endDateString = endDate.endDate.format("YYYYMMDD");
+    const planStartDateString = planStartDate.planStartDate.format("YYYYMMDD");
+    const planEndDateString = planEndDate.planEndDate.format("YYYYMMDD");
+
+    const page = useSelector((state) => state.page).page;
     //...ing
     const dispatch = useDispatch();
 
@@ -25,43 +49,63 @@ const SearchCondition = ({ ...res }) => {
             <ChangeSearchCondition
                 type={"button"}
                 onClick={() => setSearchOn(searchOn => !searchOn)}
-            >검색 조건</ChangeSearchCondition>
+            >기간 선택</ChangeSearchCondition>
             {searchOn && <SearchBox>
                 <div>
-                    <DateBox>FROM : {startDate.startDate.format("YYYY-MM-DD")}</DateBox>
+                    <DateBox>FROM : {page === 'report' ? startDate.startDate.format("YYYY-MM-DD") : planStartDate.planStartDate.format("YYYY-MM-DD")}</DateBox>
                     <Calendar
                         onChange={e => {
                             //setSearchOn(false);
-                            dispatch(setStartDate(e))
+                            if (parseInt(moment(e).format("YYYYMMDD")) > (page === 'report' ? parseInt(endDateString) : parseInt(planEndDateString))) {
+                                Toast.fire({
+                                    icon: "warning",
+                                    title: "<div style='text-align:center; font-size:14px;'>시작일이 종료일을 초과합니다!</div>"
+                                })
+                            } else {
+                                page === 'report'
+                                    ? dispatch(setStartDate(e))
+                                    : dispatch(setPlanStartDate(e))
+                            }
                         }}
-                        value={startDate.startDate.toDate()}
+                        value={ page === 'report' ? startDate.startDate.toDate() : planStartDate.planStartDate.toDate()}
                         formatDay={(locale, date) => date.toLocaleString("en", {day: "numeric"})}
                         calendarType={"gregory"}
                     />
                 </div>
                 <div>
-                    <DateBox>TO : {endDate.endDate.format("YYYY-MM-DD")}</DateBox>
+                    <DateBox>TO : {page === 'report' ? endDate.endDate.format("YYYY-MM-DD") : planEndDate.planEndDate.format("YYYY-MM-DD")}</DateBox>
                     <Calendar
                         onChange={e => {
-                            setSearchOn(false);
-                            dispatch(setEndDate(e))
+                            if (parseInt(moment(e).format("YYYYMMDD")) < (page === 'report' ? parseInt(startDateString) : parseInt(planStartDateString))) {
+                                Toast.fire({
+                                    icon: "warning",
+                                    title: "<div style='text-align:center; font-size:14px;'>종료일이 시작일 미만입니다!</div>"
+                                })
+                            } else {
+                                setSearchOn(false);
+                                page === 'report'
+                                    ? dispatch(setEndDate(e))
+                                    : dispatch(setPlanEndDate(e))
+                            }
                         }}
-                        value={endDate.endDate.toDate()}
+                        value={ page === 'report' ? endDate.endDate.toDate() : planEndDate.planEndDate.toDate()}
                         formatDay={(locale, date) => date.toLocaleString("en", {day: "numeric"})}
                         calendarType={"gregory"}
                     />
                 </div>
             </SearchBox>}
             <PresentSearchCondition>
-                {startDate.startDate.format("YYYY년 MM월 DD일")} ~ {endDate.endDate.format("YYYY년 MM월 DD일")}
+                { page === 'report' ? startDate.startDate.format("YYYY년 MM월 DD일") : planStartDate.planStartDate.format("YYYY년 MM월 DD일")} ~ { page === 'report' ? endDate.endDate.format("YYYY년 MM월 DD일") : planEndDate.planEndDate.format("YYYY년 MM월 DD일") }
             </PresentSearchCondition>
             <Department />
             <ReportCheckBox
                 id={"reportCheck"}
                 text={"보고"}
-                chainChecked={ reportCheck.reportCheck }
+                chainChecked={ page === 'report' ? reportCheck.reportCheck : planReportCheck.planReportCheck }
                 onChange={() => {
-                    dispatch(setReportCheck(!reportCheck.reportCheck))
+                    page === 'report'
+                        ? dispatch(setReportCheck(!reportCheck.reportCheck))
+                        : dispatch(setPlanReportCheck(!planReportCheck.planReportCheck))
                 }}
             />
             <ExcelSet />

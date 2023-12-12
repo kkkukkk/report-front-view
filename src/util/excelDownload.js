@@ -3,7 +3,7 @@ import {saveAs} from "file-saver";
 import moment from "moment";
 
 const excelUtil = {
-    excelDownload : async (param) => {
+    excelDownload : async (param, monthString) => {
         try {
             const wb = new Excel.Workbook();
             const headers = ["회사","구분","업무분류","담당자","시작","종료", "업무명","요구사항","업무내용"];
@@ -14,7 +14,7 @@ const excelUtil = {
 
             const fileData = await wb.xlsx.writeBuffer();
             const blob = new Blob([fileData], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
-            saveAs(blob, moment().format("YYYY년 MM월") + " 업무보고.xlsx");
+            saveAs(blob, moment().format("YYYY년 ") + monthString + "월 업무보고.xlsx");
             return true;
         } catch (error) {
             console.log(error);

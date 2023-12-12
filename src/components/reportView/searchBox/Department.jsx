@@ -1,8 +1,69 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import {setDepartment} from "../../../store/searchCondition/departmentSlice";
+import { setDepartment } from "../../../store/searchCondition/departmentSlice";
+import { setPlanDepartment } from "../../../store/searchCondition/planDepartmentSlice";
+
+const Department = () => {
+    const department = useSelector((state) => state.department);
+    const planDepartment = useSelector((state) => state.planDepartment);
+    const page = useSelector((state) => state.page).page;
+    const [departmentList, setDepartmentList] = useState([]);
+    const [currentDepartment, setCurrentDepartment] = useState(department.department);
+    const [planCurrentDepartment, setPlanCurrentDepartment] = useState(planDepartment.planDepartment);
+    const [listOn, setListOn] = useState(false);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        axios.get('https://always.samhwa.com/api/etc/job/workdept').then( result => {
+            setDepartmentList(result.data);
+        });
+    },[]);
+
+    const handleCurrentDepartment = (value) => {
+        setCurrentDepartment(value);
+        dispatch(setDepartment(value));
+        setListOn(listOn => !listOn);
+    }
+    const handlePlanCurrentDepartment = (value) => {
+        setPlanCurrentDepartment(value);
+        dispatch(setPlanDepartment(value));
+        setListOn(listOn => !listOn);
+    }
+
+    const findDepartmentName = (currentDepartment) => {
+        let deptName = '';
+        departmentList && departmentList.forEach((item) => {
+            if (item.dept_code === currentDepartment) {
+                deptName = item.dept_name;
+            }
+        })
+        return deptName;
+    }
+
+
+    return (
+        <StyledDepartment>
+            <StyledCurrentDepartment
+                onClick={() => {
+                    setListOn(listOn => !listOn);
+                }}
+            >
+                {findDepartmentName(page === 'report' ? currentDepartment : planCurrentDepartment)}
+            </StyledCurrentDepartment>
+            {listOn && <StyledDepartmentList>
+                {departmentList && departmentList.map((item, index) => (
+                    page === 'report'
+                        ? <StyledDepartmentRow key={index} onClick={() => handleCurrentDepartment(item.dept_code)}>{item.dept_name}</StyledDepartmentRow>
+                        : <StyledDepartmentRow key={index} onClick={() => handlePlanCurrentDepartment(item.dept_code)}>{item.dept_name}</StyledDepartmentRow>
+                ))}
+            </StyledDepartmentList>}
+
+        </StyledDepartment>
+    );
+};
+
 
 const StyledDepartment = styled.div`
     position: relative;
@@ -45,54 +106,5 @@ const StyledCurrentDepartment = styled.div`
         box-shadow: rgba(0,0,0,.3) 1px 1px 5px 1px;
     }
 `;
-
-const Department = () => {
-    const department = useSelector((state) => state.department);
-    const [departmentList, setDepartmentList] = useState([]);
-    const [currentDepartment, setCurrentDepartment] = useState(department.department);
-    const [listOn, setListOn] = useState(false);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        axios.get('https://always.samhwa.com/api/etc/job/workdept').then( result => {
-            setDepartmentList(result.data);
-        });
-    },[]);
-
-    const handleCurrentDepartment = (value) => {
-        setCurrentDepartment(value);
-        dispatch(setDepartment(value));
-        setListOn(listOn => !listOn);
-    }
-
-    const findDepartmentName = (currentDepartment) => {
-        let deptName = '';
-        departmentList && departmentList.forEach((item) => {
-            if (item.dept_code === currentDepartment) {
-                deptName = item.dept_name;
-            }
-        })
-        return deptName;
-    }
-
-
-    return (
-        <StyledDepartment>
-            <StyledCurrentDepartment
-                onClick={() => {
-                    setListOn(listOn => !listOn);
-                }}
-            >
-                {findDepartmentName(currentDepartment)}
-            </StyledCurrentDepartment>
-            {listOn && <StyledDepartmentList>
-                {departmentList && departmentList.map((item, index) => (
-                    <StyledDepartmentRow key={index} onClick={() => handleCurrentDepartment(item.dept_code)}>{item.dept_name}</StyledDepartmentRow>
-                ))}
-            </StyledDepartmentList>}
-
-        </StyledDepartment>
-    );
-};
 
 export default Department;

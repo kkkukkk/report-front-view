@@ -21,10 +21,20 @@ const ExcelDownloadModal = ({handleModalOn}) => {
     const [planData, setPlanData] = useState(null);
     const [checkReport, setCheckReport] = useState(false);
     const [checkPlan, setCheckPlan] = useState(false);
+
     const startDate = useSelector((state) => state.startDate).startDate.format("yyyyMMDD");
     const endDate = useSelector((state) => state.endDate).endDate.format("yyyyMMDD");
+    const startMonth = useSelector((state) => state.startDate).startDate.format("M");
+    //const endMonth = useSelector((state) => state.endDate).endDate.format("M");
     const reportCheck = useSelector((state) => state.reportCheck);
     const department = useSelector((state) => state.department);
+
+    const planStartDate = useSelector((state) => state.planStartDate).planStartDate.format("yyyyMMDD");
+    const planEndDate = useSelector((state) => state.planEndDate).planEndDate.format("yyyyMMDD");
+    //const planStartMonth = useSelector((state) => state.planStartDate).planStartDate.format("M");
+    //const planEndMonth = useSelector((state) => state.planEndDate).planEndDate.format("M");
+    const planReportCheck = useSelector((state) => state.planReportCheck);
+    const planDepartment = useSelector((state) => state.planDepartment);
 
     const handleData = (type) => {
         switch (type) {
@@ -33,11 +43,11 @@ const ExcelDownloadModal = ({handleModalOn}) => {
                     setCheckPlan(true);
                     axios.get(Constants.apiUri + '/etc/job/workresult',{
                             params: {
-                                fromdate: startDate,
-                                todate: endDate,
+                                fromdate: planStartDate,
+                                todate: planEndDate,
                                 proid: 0,
-                                bogoid: reportCheck ? '1' : '%',
-                                dept_code: department.department,
+                                bogoid: planReportCheck.planReportCheck ? '1' : '%',
+                                dept_code: planDepartment.planDepartment,
                             }
                         },
                     ).then( result => {
@@ -65,7 +75,7 @@ const ExcelDownloadModal = ({handleModalOn}) => {
                                 fromdate: startDate,
                                 todate: endDate,
                                 proid: 1,
-                                bogoid: reportCheck ? '1' : '%',
+                                bogoid: reportCheck.reportCheck ? '1' : '%',
                                 dept_code: department.department,
                             }
                         },
@@ -102,7 +112,8 @@ const ExcelDownloadModal = ({handleModalOn}) => {
                 reportData,
                 planData
             };
-            excelUtil.excelDownload(tmp);
+            //const monthString = startMonth === endMonth ? startMonth : startMonth + "-" + endMonth;
+            excelUtil.excelDownload(tmp, startMonth);
             handleModalOn(false);
         }
     }

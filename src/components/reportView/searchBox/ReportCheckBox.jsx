@@ -1,6 +1,15 @@
 import React from 'react';
 import styled from "styled-components";
 
+const ReportCheckBox = ({id, text, chainChecked, onChange}) => {
+    return (
+        <StyledReportCheckBox htmlFor={id}>
+            <StyledCheckBox type={"checkbox"} className={"hidden-check-box"} id={id} checked={chainChecked} onChange={onChange}/>
+            <StyledSpan>{text}</StyledSpan>
+        </StyledReportCheckBox>
+    );
+};
+
 const StyledReportCheckBox= styled.label` 
     display: flex;
     align-items: center;
@@ -39,14 +48,5 @@ const StyledSpan = styled.span`
     margin-left: 10px;
     height: 100%;
 `;
-
-const ReportCheckBox = ({id, text, chainChecked, onChange}) => {
-    return (
-        <StyledReportCheckBox htmlFor={id} onChange={onChange}>
-            <StyledCheckBox type={"checkbox"} className={"hidden-check-box"} id={id} defaultChecked={chainChecked} />
-            <StyledSpan>{text}</StyledSpan>
-        </StyledReportCheckBox>
-    );
-};
 
 export default ReportCheckBox;

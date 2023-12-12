@@ -16,8 +16,15 @@ const TabBoard = ({ tab }) => {
     const [modalDataKey, setModalDataKey] = useState("");
     const startDate = useSelector((state) => state.startDate).startDate.format("yyyyMMDD");
     const endDate = useSelector((state) => state.endDate).endDate.format("yyyyMMDD");
-    const reportCheck = useSelector((state) => state.reportCheck.reportCheck);
+    const reportCheck = useSelector((state) => state.reportCheck).reportCheck;
     const department = useSelector((state) => state.department);
+
+    const planStartDate = useSelector((state) => state.planStartDate).planStartDate.format("yyyyMMDD");
+    const planEndDate = useSelector((state) => state.planEndDate).planEndDate.format("yyyyMMDD");
+    const planReportCheck = useSelector((state) => state.planReportCheck).planReportCheck;
+    const planDepartment = useSelector((state) => state.planDepartment);
+
+    const page = useSelector((state) => state.page).page;
 
     const sortByKey = (a, b) => (a.sys_date + a.serl_no) - (b.sys_date + b.serl_no);
     const sortByStartDate = (a,b) => a.str_date < b.str_date ? -1 : a.str_date > b.str_date ? 1 : 0;
@@ -63,22 +70,30 @@ const TabBoard = ({ tab }) => {
 
     useEffect(() => {
         axios.get(Constants.apiUri + '/etc/job/workresult',{
-            params: {
-                fromdate: startDate,
-                todate: endDate,
-                proid: handleTab(tab),
-                bogoid: reportCheck ? '1' : '%',
-                dept_code: department.department,
-            }
+            params: page === 'report'
+                ? {
+                    fromdate: startDate,
+                    todate: endDate,
+                    proid: handleTab(tab),
+                    bogoid: reportCheck ? '1' : '%',
+                    dept_code: department.department,
+                }
+                : {
+                    fromdate: planStartDate,
+                    todate: planEndDate,
+                    proid: handleTab(tab),
+                    bogoid: planReportCheck ? '1' : '%',
+                    dept_code: planDepartment.planDepartment,
+                }
         }).then( result => {
             if (result.data.msg) {
                 setReportData(null);
             } else {
-                console.log(result.data);
+                //console.log(result.data);
                 setReportData(result.data);
             }
         })
-    }, [startDate, endDate, reportCheck, department, tab]);
+    }, [startDate, endDate, reportCheck, department, planStartDate, planEndDate, planReportCheck, planDepartment, page, tab]);
 
     useEffect(() => {
         axios.get(Constants.apiUri + '/etc/job/workresultlink',{
